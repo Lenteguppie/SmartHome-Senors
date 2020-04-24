@@ -1,15 +1,17 @@
-# import paho.mqtt.client as mqtt
-from thingspeak import *
+########################################################################
+# App to make sure the lights go on and off if the light intinisty is at a certain value
+########################################################################
 import json
-
+import hassapi as hass
 import urllib3
 import time
+import datetime
 
 
-READ_API_KEY='YOUR READ API KEY'
-CHANNEL_ID= 'YOUR CHANNEL ID'
+READ_API_KEY='CV5MX1SHMCOD7IKS'
+CHANNEL_ID= '1042789'
 
-class Packet(object):
+class Packet(hass.Hass):
     def __init__(self, payload):
         print (payload)
         self.created_at = payload["created_at"]
@@ -21,79 +23,58 @@ class Packet(object):
     def print(self):
         print("Packet --> \"Name: {0}, ID: {1}, Value: {2}\"".format(self.name, self.id, self.value))
 
-class Room(object):
-    def __init__(self, room_data):
-        self.name = room_data['name']
-        self.LDR = room_data['ldr_id']
-        self.darkIntensityValue = room_data['darkIntensityValue']
-        self.lightIntensityValue = room_data['ligtIntensityValue']
+class Room(hass.Hass):
+    def __init__(self, name, ldr_id, dark, light):
+        self.name = name
+        self.lamp = "light.lamp_sascha"
+        self.LDR = ldr_id
+        self.darkIntensityValue = dark
+        self.lightIntensityValue = light
     
     def print(self):
         print("Room --> \"name: {0}, LDR_ID: {1}, Dark: {2}, Light: {3}\"".format(self.name, self.LDR, self.darkIntensityValue, self.lightIntensityValue))
-    
-def get_room_data():
-    with open('room.json') as json_file:
-        room_data = json.load(json_file)
-        print('Name: ' + room_data['name'])
-        print('LDR_ID: ' + room_data['ldr_id'])
-        print('darkIntensityValue: ' + str(room_data['darkIntensityValue']))
-        print('ligtIntensityValue: ' + str(room_data['ligtIntensityValue']))
-        print('')
-        return room_data
 
-def get_last_packet():
+class SensorData(hass.Hass):
+    def initialize(self):   
+        self.debug = self.args["debug"]
+        time = datetime.time(0, 0, 0)
+        self.run_minutely(self.pakketdienst, time)
+        if (self.debug == 1):
+            self.log("SensorData Initiated!")  
 
-    http = urllib3.PoolManager()
-    url = "http://api.thingspeak.com/channels/{}/feeds/last.json?api_key={}".format(CHANNEL_ID,READ_API_KEY)
-    r = http.request('GET', url)
-    data = None
-    data_len = 0
+        self.slaapkamer = Room(self.args["name"], self.args["ldr_id"], self.args["darkIntensityValue"], self.args["ligtIntensityValue"])
+        self.slaapkamer.print()
 
-    data = json.loads(r.data.decode('utf-8'))
-    data_len = len(data)
+    def pakketdienst(self, kwargs):
+        new_packet = self.get_last_packet()
+            
+        if (new_packet != None):
+            print(new_packet.id)
+            if (new_packet.id == self.slaapkamer.LDR):
+                if (self.debug == 1):
+                    self.log("LDR matched!")
+                if(int(new_packet.value) >= self.slaapkamer.darkIntensityValue):
+                    self.turn_on(self.slaapkamer.lamp)
+                elif (int(new_packet.value) <= self.slaapkamer.lightIntensityValue):
+                    self.turn_off(self.slaapkamer.lamp)
+        else:
+            if (self.debug == 1):
+                self.log("Error while try request to ThingSpeak")
 
-    return Packet(data)
+    def get_last_packet(self):
 
-slaapkamer = Room(get_room_data())
-slaapkamer.print()
+        http = urllib3.PoolManager()
+        url = "http://api.thingspeak.com/channels/{}/feeds/last.json?api_key={}".format(CHANNEL_ID,READ_API_KEY)
+        r = http.request('GET', url)
+        data = None
+        data_len = 0
 
-while True:
-    new_packet = get_last_packet()
-    print(new_packet.id)
-    if (new_packet != None ):
-        if (new_packet.id == slaapkamer.LDR):
-            print("slaapkamer LDR :D")
+        print ("Status: {}".format(r.status))
 
-    time.sleep(5)
-
-
-'''
-The functions for sending and/ or receiving the data with MQTT
-
-'''
-
-# # The callback for when the client receives a CONNACK response from the server.
-# def on_connect(client, userdata, flags, rc):
-#     print("Connected with result code "+str(rc))
-
-#     # Subscribing in on_connect() means that if we lose the connection and
-#     # reconnect then subscriptions will be renewed.
-#     client.subscribe("LightIntensity/#")
-
-# # The callback for when a PUBLISH message is received from the server.
-# def on_message(client, userdata, msg):
-#     # print(msg.topic+" "+str(msg.payload))
-#     parse_message(msg)
-
-
-# client = mqtt.Client(client_id="HASSIO_LightIntensity_Manager")
-# client.on_connect = on_connect
-# client.on_message = on_message
-
-# client.connect("localhost", 1883, 60)
-
-# # Blocking call that processes network traffic, dispatches callbacks and
-# # handles reconnecting.
-# # Other loop*() functions are available that give a threaded interface and a
-# # manual interface.
-# client.loop_forever()
+        if (r.status == 200): #Check if the request is completed
+            data = json.loads(r.data.decode('utf-8'))
+            data_len = len(data)
+        
+            return Packet(data)
+        else:
+            return None
