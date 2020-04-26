@@ -5,6 +5,9 @@ In dit project maak ik gebruik vaan een DHT11, dat is een sensor die temperatuur
 
 Thingsspeak is een platform waar je via het HTTP protocol data kan verzenden en af kan halen met behulp van een API. Ook laat Thingspeak de ontvangen data zien met mooie grafieken zodat het ook nog visueel is weergegeven.
 
+
+Voor deze repository is het wel een vereiste dat er een al bestaand smarthome systeem aanwezig is waar de appdeamon plugin op draait. Ik ga hier namelijk niet al te diep op in hoe je dit opzet aangezien er al genoeg bronnen op internet daar voor zijn.
+ 
 ## Benodigde hardware:
 - Raspberry Pi 3B+ of Raspberry Pi 4
 - SD kaartje 32 of 64 GB is voldoende
