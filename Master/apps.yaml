@@ -1,0 +1,8 @@
+sensordata:
+  module: sensordata
+  class: SensorData
+  name: Slaapkamer
+  ldr_id: "0001"
+  darkIntensityValue: 130
+  ligtIntensityValue: 145
+  debug: 0
