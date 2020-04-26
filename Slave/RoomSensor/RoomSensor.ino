@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
-
+#include <ESP8266HTTPClient.h>
 #include "DHT.h"
+#include "Secrets.h"
 
 // Uncomment one of the lines below for whatever DHT sensor type you're using!
 #define DHTTYPE DHT11   // DHT 11
@@ -8,8 +9,8 @@
 //#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 
 /*Put your SSID & Password*/
-const char* ssid = "YOUR SSID";  // Enter SSID here
-const char* password = "YOUR PASSWD";  //Enter Password here
+const char* ssid = SECRET_SSID;  // Enter SSID here
+const char* password = SECRET_PASS;  //Enter Password here
 
 // DHT Sensor
 #define DHTPin 14
@@ -70,7 +71,15 @@ void loop() {
   Serial.println(Humidity);
 
    if(WiFi.status()== WL_CONNECTED){ //Check WiFi connection status
-    // code voor dingen met internet
+      
+    HTTPClient http; //Declare an object of class HTTPClient
+    http.begin("http://jsonplaceholder.typicode.com/users/1"); //Specify request destination
+    int httpCode = http.GET(); //Send the request
+    if (httpCode > 0) { //Check the returning code
+      String payload = http.getString(); //Get the request response payload
+      Serial.println(payload); //Print the response payload
+    }
+    http.end(); //Close connection
   } else {
     Serial.println("Error in WiFi connection");   
   }
