@@ -15,12 +15,24 @@ Het doel van dit project is om het home automation systeem wat ik thuis heb draa
 - SD kaartje 32 of 64 GB is voldoende
 - NodeMCU ESP8266
 - DHT11 digitale temperatuur sensor
+- Minimaal 3 female - female jumper wires
 
 ## Benodigde software:
-- Arduino IDE
+- [Arduino IDE](https://www.arduino.cc/en/Main/Software)
+- [Thingspeak](https://thingspeak.com/)
+- [Hassio operating system](https://www.home-assistant.io/hassio/)
+- [Appdeamon plugin in HomeAssistant](https://www.home-assistant.io/docs/ecosystem/appdaemon/)
 - Code editor naar keuze voor python
-- Hassio operating system
-- Appdeamon plugin in HomeAssistant
+
+## Dataflow
+Voor dit project heb ik gekozen voor een master - slave constructie. Deze constructie houdt in dat de slaves de sensor data verwerken en daarnaa doorsturen naar de benodigde service. De master die haalt de data van die service af. De master verwerkt daarna de data en laat een ander apparaat er op reageren als dat nodig is. In dit project ziet dat er zo uit:
+
+1. De esp8266 leest de sensor data uit.
+2. De esp8266 stuurt de data naar een Thingspeak kanaal.
+3. AppDeamon haalt elke minuut de laastst verstuurde data van het Thingspeak kanaal.
+4. AppDeamon verwerkt de data.
+5. AppDeamon communiceert met HASSIO om het licht aan of uit te zetten. 
+
 
 ## AppDeamon setup
 ### YAML file
@@ -42,7 +54,7 @@ Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als 
 
 
 ## Slave
-Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen om de data door te kunnen sturen naar Thingsspeak.
+Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen o m de data door te kunnen sturen naar Thingsspeak.
 
 Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!
 
