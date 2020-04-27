@@ -1,9 +1,9 @@
 # SmartHome Senors
 Een systeem dat zelf gemaakte temperatuur en / of LDR (Light dependent resistors) integreert met het appdeamon systeem
 
-In dit project maak ik gebruik vaan een DHT11, dat is een sensor die temperatuur en luchtvochtigheid meet. Ik sluit de DHT11 aan op een NodeMCU ESP8266. De ESP die leest de data en stuurt deze door naar ThingsSpeak.
+In dit project maak ik gebruik vaan een DHT11, dat is een sensor die temperatuur en luchtvochtigheid meet. Ik sluit de DHT11 aan op een NodeMCU ESP8266. De ESP die leest de data en stuurt deze door naar Thingspeak.
 
-Thingsspeak is een platform waar je via het HTTP protocol data kan verzenden en af kan halen met behulp van een API. Ook laat Thingspeak de ontvangen data zien met mooie grafieken zodat het ook nog visueel is weergegeven.
+Thingspeak is een platform waar je via het HTTP protocol data kan verzenden en af kan halen met behulp van een API. Ook laat Thingspeak de ontvangen data zien met mooie grafieken zodat het ook nog visueel is weergegeven.
 
 *Voor deze repository is het wel een ***vereiste*** dat er een al bestaand smarthome systeem aanwezig is waar de appdeamon plugin op draait. Ik ga hier namelijk niet al te diep op in hoe je dit opzet aangezien er al genoeg bronnen op internet daar voor zijn.*
 
@@ -54,11 +54,11 @@ Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als 
 
 
 ## Slave
-Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen o m de data door te kunnen sturen naar Thingsspeak.
+Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen o m de data door te kunnen sturen naar Thingspeak.
 
-Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!
+Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!
 
- ![alt text](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Media/thingsspeakdashboard.PNG "Thingsspeak dashboard")
+ ![alt text](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Media/Thingspeakdashboard.PNG "Thingspeak dashboard")
 
 
 ### Apparaat keuze
