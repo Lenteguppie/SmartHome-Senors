@@ -45,9 +45,27 @@ Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als 
 Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen om de data door te kunnen sturen naar Thingsspeak.
 
 Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!
+
  ![alt text](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Media/thingsspeakdashboard.PNG "Thingsspeak dashboard")
 
 
+### Apparaat keuze
+Voor dit project heb ik gekozen voor een NodeMCU ESP8266, dit is een microcontroller die kan verbinden met WiFi. Vooral omdat deze niet veel rekenkracht heeft en niet veel stroom gebruikt waardoor die langer mee kan gaan op een batterij dan bijvoorbeeld een Raspberry Pi. De ESP kan nog minder stroom verbruiken als je die in de deep sleep modus zet. Dit heb ik niet voor dit project gedaan omdat ik het voor nu even met de usb kabel aan mijn computer verbonden laat. Dit staat nog wel op mijn TODO lijst om het onafhankelijk te maken van de computer. De ESP8266 kan verbinden met WiFi en sensoren uitlezen wat het daarom uitstekend maakt om te gebruiken om compact die data uit te lezen.
 
-Voor dit project heb ik gekozen voor een NodeMCU ESP8266. Vooral omdat deze niet veel rekenkracht heeft en niet veel stroom gebruikt waardoor die langer mee kan gaan op een batterij dan bijvoorbeeld een Raspberry Pi. De ESP kan nog minder stroom verbruiken als je die in de deep sleep modus zet. Dit heb ik niet voor dit project gedaan omdat ik het voor nu even met de usb kabel aan mijn computer verbonden laat. Dit staat nog wel op mijn TODO lijst om het onafhankelijk te maken van de computer. De ESP8266 kan verbinden met WiFi en sensoren uitlezen wat het daarom uitstekend maakt om te gebruiken om compact die data uit te lezen.
+### Sensor keuze
+Voor deze demo heb ik gekozen voor een DHT11, het was in eerste instantie de bedoeling dat ik een LDR ging gebruiken, aangezien die onbedoeld in een ander project zat moest ik inproviseren. In dit geval maakt het niet heel veel uit aangezien je elke sensor kan gebruiken die je wilt. Zolang je maar een waarde in je apps.yaml in stelt waarmee je de lichten aan en uit kan laten doen bij de variabele *"toggle"*. Het is alleen even uitzoeken op welke waarde je de lampen aan en uit wil laten gaan met elke sensor. Het idee blijft hetzelfde verder.
+
+### Slave programmeren
+Om de sensordata te kunnen uitlezen moet je de microcontroller / microprocessor programeren. Voor dit voorbeeld gebruik ik een esp8266. U kunt de esp8266 programmeren in de Arduino IDE. Als u [dit bestand (.ino file)](https://github.com/Lenteguppie/SmartHome-Senors/tree/master/Slave/RoomSensor) in de Arduino IDE opent kunt u het daarmee programeren op de esp8266. Deze bestand kunt u anders vinden onder *Slave -> RoomSensor -> RoomSensor.ino*. Vergeet dit bestand niet in een gelijknamige map te zetten en de Secrets.h er in te zetten. In de Secrets.h staan alle gevoelige gegevens die u naar uw wens moet aanpassen.
+
+De enige keer dat u de code moet aanpassen is als een een andere sensor gebruikt of als u de sensor op een andere pin aangesloten heeft.
+
+### Sensor aansluiten
+Op de meeste digitale sensoren als de DHT11 zitten 3 pinnen die je kan verbinden met een microcontroller. Hieronder kunt u zien hoe ik de DHT11 heb aangesloten op de esp.
+
+| ESP8266       | SENSORPin     | 
+|:------------- |:-------------:| 
+| +3.3          | VCC           | 
+| D5            | Data          | 
+| GND           | GND           | 
 
