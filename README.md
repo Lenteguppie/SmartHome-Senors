@@ -39,3 +39,14 @@ sensordata:
 
 ### App
 Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als het *apps.yaml* bestand. De app zelf kan je in de repository vinden onder: *Master -> sensordata.py* of [klik hier](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Master/sensordata.py "SensorData.py Source File") om naar het bestand toe te gaan.
+
+
+## Slave
+Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen om de data door te kunnen sturen naar Thingsspeak.
+
+ ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!")
+
+
+
+Voor dit project heb ik gekozen voor een NodeMCU ESP8266. Vooral omdat deze niet veel rekenkracht heeft en niet veel stroom gebruikt waardoor die langer mee kan gaan op een batterij dan bijvoorbeeld een Raspberry Pi. De ESP kan nog minder stroom verbruiken als je die in de deep sleep modus zet. Dit heb ik niet voor dit project gedaan omdat ik het voor nu even met de usb kabel aan mijn computer verbonden laat. Dit staat nog wel op mijn TODO lijst om het onafhankelijk te maken van de computer. De ESP8266 kan verbinden met WiFi en sensoren uitlezen wat het daarom uitstekend maakt om te gebruiken om compact die data uit te lezen.
+
