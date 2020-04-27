@@ -21,15 +21,19 @@ Thingsspeak is een platform waar je via het HTTP protocol data kan verzenden en 
 - Appdeamon plugin in HomeAssistant
 
 ## AppDeamon setup
-Om dit programma te laten lopen in ons smart home systeem maak ik gebruik van een zo genoemde app van appdeamon. Deze apps die worden ingeladen als je ze hebt gedefiniëert in de *apps.yaml*. Zet het volgende in de apps.yaml:
+### YAML file
+Om dit programma te laten lopen in ons smart home systeem maak ik gebruik van een zo genoemde app van appdeamon. Deze apps die worden ingeladen als je ze hebt gedefiniëert in de *apps.yaml*. Zet het volgende in de apps.yaml (waardes zonder de blokhaken!):
 
 ```yaml
 sensordata:
   module: sensordata
   class: SensorData
-  name: Slaapkamer
-  ldr_id: "0001"
-  darkIntensityValue: 130
-  ligtIntensityValue: 145
+  name: [naam van de ruimte waar de sensor in staat (String)]
+  sensor_id: [ID van de sensor die je wil gebruiken (int)]
+  toggle: [waarde voor (float)]
   debug: 0
 ```
+[klik hier voor een voorbeeld apps.yaml bestand!](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Master/apps.yaml)
+
+### App
+Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als het *apps.yaml* bestand. De app zelf kan je in de repository vinden onder: *Master -> sensordata.py* of [klik hier](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Master/sensordata.py "SensorData.py Source File") om naar het bestand toe te gaan.
