@@ -5,8 +5,10 @@ In dit project maak ik gebruik vaan een DHT11, dat is een sensor die temperatuur
 
 Thingsspeak is een platform waar je via het HTTP protocol data kan verzenden en af kan halen met behulp van een API. Ook laat Thingspeak de ontvangen data zien met mooie grafieken zodat het ook nog visueel is weergegeven.
 
-
 *Voor deze repository is het wel een ***vereiste*** dat er een al bestaand smarthome systeem aanwezig is waar de appdeamon plugin op draait. Ik ga hier namelijk niet al te diep op in hoe je dit opzet aangezien er al genoeg bronnen op internet daar voor zijn.*
+
+## Het doel
+Het doel van dit project is om het home automation systeem wat ik thuis heb draaien nog meer automatisch te maken. Ik wil er voor zorgen dat de lampen reageren op de input van de sensor die ik ophaal. Dit kan een licht sensor en/of een temperatuur sensor zijn. Het doel voor later is om alles in huis automatisch te laten verlopen. Dus onder andere mijn lampen aan en uit zetten als het systeem een bepaalde waarde van de sensoren ontvangt. 
  
 ## Benodigde hardware:
 - Raspberry Pi 3B+ of Raspberry Pi 4
