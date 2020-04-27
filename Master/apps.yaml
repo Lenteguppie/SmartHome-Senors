@@ -3,6 +3,5 @@ sensordata:
   class: SensorData
   name: Slaapkamer
   ldr_id: "0001"
-  darkIntensityValue: 130
-  ligtIntensityValue: 145
+  toggle: 22
   debug: 0
