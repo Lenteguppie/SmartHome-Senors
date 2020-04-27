@@ -18,6 +18,8 @@ const char* password = SECRET_PASS;  //Enter Password here
 
 // Replace with your unique Thing Speak WRITE API KEY
 const char* apiKey = SECRET_WRITE_APIKEY;
+const char* dev_name = SENSOR_NAME;
+const char* dev_id = SENSOR_ID;
 
 const char* resource = "/update?api_key=";
 
@@ -79,7 +81,7 @@ void makeHTTPRequest() {
   
   Serial.print("Request resource: "); 
   Serial.println(resource);
-  client.print(String("GET ") + resource + apiKey + "&field1=DHT1&field2=0001&field4=" + humidityTemp + "&field3=" + temperatureTemp +
+  client.print(String("GET ") + resource + apiKey + "&field1="+dev_name+"&field2="+dev_id+"&field4=" + humidityTemp + "&field3=" + temperatureTemp +
                   " HTTP/1.1\r\n" +
                   "Host: " + server + "\r\n" + 
                   "Connection: close\r\n\r\n");
@@ -141,59 +143,6 @@ void setup() {
 }
 
 void loop() {
- 
-
-//  Serial.print("Temperature: ");
-//  Serial.println(Temperature);
-//  Serial.print("Humidity: ");
-//  Serial.println(Humidity);
-//  //  String URL = "https://api.thingspeak.com/update?api_key=" + SECRET_WRITE_APIKEY + "&field1=" + SENSOR_NAME + "&field2=" + SENSOR_ID + "&field3=" + Temperature + "&field4=" + "&field4=" Humidity;
-//  String URL = "https://api.thingspeak.com/update?api_key=";
-//  URL += SECRET_WRITE_APIKEY;
-//  URL += "&field1=";
-//  URL += SENSOR_NAME;
-//  URL += "&field2=";
-//  URL += SENSOR_ID;
-//  URL += "&field3=";
-//  URL += String(Temperature);
-//  URL += "&field4=";
-//  URL += String(Humidity);
-//  Serial.println(URL);
-
-  makeHTTPRequest();
-
-//  if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
-//
-//    std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
-//
-//    client->setFingerprint(fingerprint);
-//
-//    HTTPClient https;
-//
-//    Serial.print("[HTTPS] begin...\n");
-//    if (https.begin(*client, URL)) {  // HTTPS
-//
-//      Serial.print("[HTTPS] GET...\n");
-//      // start connection and send HTTP header
-//      int httpCode = https.GET();
-//
-//      // httpCode will be negative on error
-//      if (httpCode > 0) {
-//        // HTTP header has been send and Server response header has been handled
-//        Serial.printf("[HTTPS] GET... code: %d\n", httpCode);
-//
-//        // file found at server
-//        if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
-//          String payload = https.getString();
-//          Serial.println(payload);
-//        }
-//      } else {
-//        Serial.printf("[HTTPS] GET... failed, error: %s\n", https.errorToString(httpCode).c_str());
-//      }
-//      https.end();
-//    }
-//  } else {
-//    Serial.println("Error in WiFi connection");
-//  }
-  delay(10000); //Send a request every 60 seconds
+   makeHTTPRequest();
+   delay(15000); //Send a request every 15 seconds
 }
