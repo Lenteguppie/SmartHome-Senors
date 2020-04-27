@@ -69,3 +69,6 @@ Op de meeste digitale sensoren als de DHT11 zitten 3 pinnen die je kan verbinden
 | D5            | Data          | 
 | GND           | GND           | 
 
+Als de sensor aangesloten zit moet het er ongeveer zo uitzien:
+
+ ![alt text](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Media/dhtesp.jpeg "esp8266 with dht11")
