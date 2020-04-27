@@ -44,7 +44,8 @@ Als de yaml klaar is dan is het nu tijd om de app in dezelfde map te zetten als 
 ## Slave
 Om data binnen te krijgen op de app die we hebben gemaakt moeten we eerst een apparaat maken dat de sensoren uit leest. Je kan met verschillende microcontrollers en/of microprocessors sensoren uitlezen op een of andere manier. Het apparaat wat je gebruikt moet wel met WiFi kunnen verbinden en het *[HTTP(S)](https://nl.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Theorie achter het HTTP protocol")* protocol ondersteunen om de data door te kunnen sturen naar Thingsspeak.
 
- ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!")
+Het apparaat moet een HTTP GET request kunnen sturen naar de links die in de Thingsspeak dashboard staan onder het tabblad *API Keys*! zoals op het plaatje hieronder!
+ ![alt text](https://github.com/Lenteguppie/SmartHome-Senors/blob/master/Media/thingsspeakdashboard.PNG "Thingsspeak dashboard")
 
 
 
